@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { Home, Languages, Landmark, MapPin, User } from "lucide-react";
 
 export default function Navbar() {
@@ -7,20 +8,32 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="h-11 w-11 rounded-xl bg-brandOrange text-white grid place-items-center font-bold">
-            SA
+            SM
           </div>
           <div className="leading-tight">
-            <p className="font-extrabold text-lg">Learn SA</p>
-            <p className="font-extrabold text-lg -mt-1">Languages</p>
+            <p className="font-extrabold text-lg">Speak</p>
+            <p className="font-extrabold text-lg -mt-1">Mzansi</p>
           </div>
         </div>
 
         {/* Nav Pills */}
-        <nav className="hidden md:flex items-center gap-2 bg-white rounded-full px-2 py-2 shadow-soft">
-          <NavItem icon={<Home size={18} />} label="Home" active />
-          <NavItem icon={<Languages size={18} />} label="Languages" />
-          <NavItem icon={<Landmark size={18} />} label="Culture" />
-          <NavItem icon={<MapPin size={18} />} label="Destinations" />
+        <nav className="flex items-center gap-2 bg-white rounded-full px-2 py-2 shadow-soft">
+          <NavItem to="/" icon={<Home size={18} />} label="Home" />
+          <NavItem
+            to="/languages"
+            icon={<Languages size={18} />}
+            label="Languages"
+          />
+          <NavItem
+            to="/culture"
+            icon={<Landmark size={18} />}
+            label="Culture"
+          />
+          <NavItem
+            to="/destinations"
+            icon={<MapPin size={18} />}
+            label="Destinations"
+          />
         </nav>
 
         {/* Sign in */}
@@ -33,16 +46,22 @@ export default function Navbar() {
   );
 }
 
-function NavItem({ icon, label, active }) {
+function NavItem({ to, icon, label }) {
   return (
-    <button
-      className={[
-        "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition",
-        active ? "bg-ink text-white" : "text-ink hover:bg-black/5",
-      ].join(" ")}
+    <NavLink
+      to={to}
+      end
+      className={({ isActive }) =>
+        [
+          "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition",
+          isActive
+            ? "bg-slate-900 text-white"
+            : "text-slate-800 hover:bg-slate-100",
+        ].join(" ")
+      }
     >
       {icon}
       {label}
-    </button>
+    </NavLink>
   );
 }
